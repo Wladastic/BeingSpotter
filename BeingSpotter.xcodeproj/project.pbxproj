@@ -16,6 +16,8 @@
 		E6C2108523D4ECD100DD4E42 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6C2108323D4ECD100DD4E42 /* LaunchScreen.storyboard */; };
 		E6C2109023D4ECD100DD4E42 /* BeingSpotterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C2108F23D4ECD100DD4E42 /* BeingSpotterTests.swift */; };
 		E6C2109B23D4ECD100DD4E42 /* BeingSpotterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C2109A23D4ECD100DD4E42 /* BeingSpotterUITests.swift */; };
+		E6C210A923D4FA8E00DD4E42 /* SqueezeNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = E6C210A823D4FA8E00DD4E42 /* SqueezeNet.mlmodel */; };
+		E6C210AB23DC32AA00DD4E42 /* MobileNetV2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = E6C210AA23DC32A900DD4E42 /* MobileNetV2.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		E6C2109623D4ECD100DD4E42 /* BeingSpotterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeingSpotterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6C2109A23D4ECD100DD4E42 /* BeingSpotterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeingSpotterUITests.swift; sourceTree = "<group>"; };
 		E6C2109C23D4ECD100DD4E42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E6C210A823D4FA8E00DD4E42 /* SqueezeNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SqueezeNet.mlmodel; sourceTree = "<group>"; };
+		E6C210AA23DC32A900DD4E42 /* MobileNetV2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNetV2.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,8 @@
 		E6C2107423D4ECCD00DD4E42 /* BeingSpotter */ = {
 			isa = PBXGroup;
 			children = (
+				E6C210A823D4FA8E00DD4E42 /* SqueezeNet.mlmodel */,
+				E6C210AA23DC32A900DD4E42 /* MobileNetV2.mlmodel */,
 				E6C2107523D4ECCD00DD4E42 /* AppDelegate.swift */,
 				E6C2107723D4ECCD00DD4E42 /* SceneDelegate.swift */,
 				E6C2107C23D4ECCD00DD4E42 /* ContentView.swift */,
@@ -270,8 +276,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6C210AB23DC32AA00DD4E42 /* MobileNetV2.mlmodel in Sources */,
 				E6C2107B23D4ECCD00DD4E42 /* BeingSpotter.xcdatamodeld in Sources */,
 				E6C2107623D4ECCD00DD4E42 /* AppDelegate.swift in Sources */,
+				E6C210A923D4FA8E00DD4E42 /* SqueezeNet.mlmodel in Sources */,
 				E6C2107D23D4ECCD00DD4E42 /* ContentView.swift in Sources */,
 				E6C2107823D4ECCD00DD4E42 /* SceneDelegate.swift in Sources */,
 			);

@@ -8,8 +8,10 @@
 
 import UIKit
 import SwiftUI
+import AVKit
+import Vision
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
 
     var window: UIWindow?
 
@@ -19,6 +21,53 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
+        let captureSession = AVCaptureSession()
+        
+        guard let captureDevice = AVCaptureDevice.default(for: .video) else {return}
+        
+        guard let input = try? AVCaptureDeviceInput(device: captureDevice) else {return}
+        
+        captureSession.addInput(input)
+        captureSession.startRunning()
+        
+        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        
+        
+        // TODO: check here how to implement properly
+        window?.inputViewController?.view.layer.addSublayer(previewLayer)
+        
+        previewLayer.frame = (window?.inputViewController?.view.frame)!
+        
+        let dataOutput = AVCaptureVideoDataOutput()
+        
+        dataOutput.setSampleBufferDelegate(self,
+                                    queue: DispatchQueue(label: "videoQueue"))
+        captureSession.addOutput(dataOutput)
+        
+        func captureOutput(_ output: AVCaptureOutput, didOutput
+            sampleBuffer: CMSampleBuffer, from connection:
+            AVCaptureConnection) {
+           // print("Camera was able to capture a frame:", Date())
+    
+            guard let pixelBuffer: CVPixelBuffer =
+                CMSampleBufferGetImageBuffer(sampleBuffer) else
+                {return}
+        
+            guard let model = try? VNCoreMLModel(for: MobileNetV2.init().model) else {return}
+            let request = VNCoreMLRequest(model: model){
+                (finishedReq, err) in
+                                
+                guard let results = finishedReq.results as? [VNClassificationObservation] else {return}
+                guard let firstObservation = results.first else {return}
+                
+                print(firstObservation.identifier, firstObservation.confidence)
+                
+            }
+            
+           try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options:
+                [:]).perform([request])
+        }
+        /**
         // Get the managed object context from the shared persistent container.
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
@@ -32,7 +81,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.rootViewController = UIHostingController(rootView: contentView)
             self.window = window
             window.makeKeyAndVisible()
-        }
+            
+            let captureSession = AVCaptureSession()
+            
+            guard let captureDevice = AVCaptureDevice.default(for: .video) else {return}
+            
+            guard let input = try? AVCaptureDeviceInput(device: captureDevice) else {return}
+            
+            captureSession.addInput(input)
+            captureSession.startRunning()
+            
+        }**/
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
